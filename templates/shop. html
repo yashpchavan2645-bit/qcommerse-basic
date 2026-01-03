@@ -1,0 +1,14 @@
+<h2>Shop Owner – Add Product (₹)</h2>
+
+<form method="post">
+  <input name="name" placeholder="Product name" required>
+  <input name="price" placeholder="Price in ₹" required>
+  <button>Add Product</button>
+</form>
+
+<hr>
+
+<h3>My Products</h3>
+{% for p in products %}
+<p>{{ p[1] }} – ₹{{ p[2] }}</p>
+{% endfor %}
