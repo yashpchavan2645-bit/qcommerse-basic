@@ -1,0 +1,12 @@
+<h2>Customer – Order Products</h2>
+
+{% for p in products %}
+<form method="post">
+  <input type="hidden" name="product" value="{{ p[1] }}">
+  <input type="hidden" name="price" value="{{ p[2] }}">
+  <p>
+    {{ p[1] }} – ₹{{ p[2] }}
+    <button>Order</button>
+  </p>
+</form>
+{% endfor %}
