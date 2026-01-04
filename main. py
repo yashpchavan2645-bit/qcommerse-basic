@@ -63,4 +63,3 @@ def delivery():
     return render_template("delivery.html", orders=orders)
 
 app.run(host="0.0.0.0", port=8080)
-
