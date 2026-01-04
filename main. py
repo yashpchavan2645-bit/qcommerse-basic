@@ -24,7 +24,6 @@ def init_db():
         )
     """)
     db.commit()
-
 init_db()
 @app.route("/customer", methods=["GET", "POST"])
 def customer():
@@ -57,25 +56,28 @@ def shop():
     products = db.execute("SELECT * FROM products").fetchall()
     return render_template("shop.html", products=products)
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/customer", methods=["GET", "POST"])
 def customer():
     db = get_db()
+
     if request.method == "POST":
         product = request.form["product"]
         price = request.form["price"]
+
         db.execute(
             "INSERT INTO orders (product, price, status) VALUES (?, ?, ?)",
             (product, price, "NEW")
         )
         db.commit()
-        return redirect("/")
+
+        return redirect("/customer")   # 👈 फक्त इथेच redirect
+
     products = db.execute("SELECT * FROM products").fetchall()
-    return render_template("customer.html", products=products)
+ return render_template("customer.html", products=products)
 
 @app.route("/delivery")
 def delivery():
     db = get_db()
-    orders = db.execute("SELECT * FROM orders").fetchall()
-    return render_template("delivery.html", orders=orders)
+    orders = db.execute("SELECT * FROM orders").fetchall()  
+return render_template("delivery.html", orders=orders)
 
-app.run(host="0.0.0.0", port=8080)
