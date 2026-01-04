@@ -26,7 +26,23 @@ def init_db():
     db.commit()
 
 init_db()
+@app.route("/customer", methods=["GET", "POST"])
+def customer():
+    db = get_db()
 
+    if request.method == "POST":
+        product = request.form["product"]
+        price = request.form["price"]
+
+        db.execute(
+            "INSERT INTO orders (product, price, status) VALUES (?, ?, ?)",
+            (product, price, "NEW")
+        )
+        db.commit()
+        return redirect("/customer")
+
+    products = db.execute("SELECT * FROM products").fetchall()
+    return render_template("customer.html", products=products)
 @app.route("/shop", methods=["GET", "POST"])
 def shop():
     db = get_db()
